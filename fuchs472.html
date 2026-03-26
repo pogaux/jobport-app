@@ -353,7 +353,7 @@
 
     <div class="radar-wrap">
       <h2>Dein Berufsprofil</h2>
-      <canvas id="radarCanvas" width="480" height="480" style="width:240px;height:240px;"></canvas>
+      <canvas id="radarCanvas" width="560" height="560" style="width:280px;height:280px;"></canvas>
       <p class="radar-desc">
         <span class="mint" style="font-weight:600;">Machen</span> und
         <span class="mint" style="font-weight:600;">Gestalten</span> stehen bei dir im Vordergrund.
@@ -472,7 +472,7 @@
     const canvas = document.getElementById('radarCanvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    const w = 240, h = 240, cx = w/2, cy = h/2, r = 70;
+    const w = 280, h = 280, cx = w/2, cy = h/2, r = 70;
     canvas.width = w * 2; canvas.height = h * 2;
     canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
     ctx.scale(2, 2);
@@ -505,8 +505,14 @@
       const lx = cx + Math.cos(a)*(r+18), ly = cy + Math.sin(a)*(r+18);
       ctx.font = '600 10px DM Sans,sans-serif';
       ctx.fillStyle = 'rgba(255,255,255,0.5)';
-      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.fillText(dim, lx, ly);
+      ctx.textBaseline = 'middle';
+      if (Math.cos(a) < -0.3) {
+        ctx.textAlign = 'right';
+        ctx.fillText(dim, cx + Math.cos(a)*(r+4), ly);
+      } else {
+        ctx.textAlign = 'center';
+        ctx.fillText(dim, lx, ly);
+      }
     });
 
     // Data polygon
